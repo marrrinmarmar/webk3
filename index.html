@@ -127,18 +127,22 @@
       box-shadow: 6px 6px 14px var(--neu-shadow-dark),
         -6px -6px 14px var(--neu-shadow-light);
       border: 1px solid rgba(255, 255, 255, 0.85);
-      transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+                  background 0.2s ease,
+                  color 0.2s ease;
+      will-change: transform, box-shadow;
     }
 
     .neu-btn:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2.5px);
       box-shadow: 8px 8px 18px var(--neu-shadow-dark),
         -8px -8px 18px var(--neu-shadow-light);
     }
 
     .neu-btn:active,
     .neu-btn.active {
-      transform: translateY(1px);
+      transform: translateY(1.5px) scale(0.97);
       background: #E4ECE6;
       box-shadow: inset 4px 4px 8px var(--neu-shadow-dark),
         inset -4px -4px 8px var(--neu-shadow-light);
@@ -152,20 +156,47 @@
       box-shadow: 6px 6px 16px rgba(22, 163, 74, 0.42),
         -5px -5px 14px var(--neu-shadow-light);
       border: 1px solid rgba(255, 255, 255, 0.4);
-      transition: all 0.22s cubic-bezier(0.25, 1, 0.5, 1);
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.22s cubic-bezier(0.25, 1, 0.5, 1),
+                  filter 0.22s ease;
+      will-change: transform, box-shadow;
     }
 
     .neu-cta:hover {
       background: linear-gradient(135deg, #15803D 0%, #047857 100%);
-      box-shadow: 8px 8px 22px rgba(22, 163, 74, 0.52),
+      box-shadow: 8px 8px 24px rgba(22, 163, 74, 0.52),
         -6px -6px 16px var(--neu-shadow-light);
-      transform: translateY(-2px);
+      transform: translateY(-2.5px);
     }
 
     .neu-cta:active {
-      transform: translateY(1px);
-      box-shadow: inset 3px 3px 6px rgba(0, 0, 0, 0.35),
+      transform: translateY(1.5px) scale(0.97);
+      box-shadow: inset 3px 3px 7px rgba(0, 0, 0, 0.38),
         2px 2px 8px rgba(22, 163, 74, 0.35);
+    }
+
+    /* Tactile Elevation on Hover for Cards */
+    .neu-card-hover {
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  box-shadow 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform, box-shadow;
+    }
+
+    .neu-card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 14px 14px 30px var(--neu-shadow-dark),
+                 -14px -14px 30px var(--neu-shadow-light);
+    }
+
+    .neu-card-hover:hover .icon-cavity {
+      box-shadow: inset 5px 5px 11px var(--neu-shadow-dark-deep),
+                  inset -5px -5px 11px var(--neu-shadow-light);
+      transform: scale(1.06);
+    }
+
+    .icon-cavity {
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.28s ease;
     }
 
     /* Glassmorphic Navbar Accent (Accented Dose Cap: strictly for top sticky header) */
@@ -175,6 +206,12 @@
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.75);
       box-shadow: 0 10px 25px -5px rgba(158, 176, 165, 0.35);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .neu-glass-header-scrolled {
+      background: rgba(234, 240, 236, 0.94);
+      box-shadow: 0 12px 28px -4px rgba(158, 176, 165, 0.45);
     }
 
     /* Tactile Toggle Switch */
@@ -222,6 +259,40 @@
       }
     }
 
+    /* Organic Calm Breathing for Central Core */
+    @keyframes organicBreathe {
+      0%, 100% {
+        filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.2));
+      }
+      50% {
+        filter: drop-shadow(0 0 28px rgba(16, 185, 129, 0.38));
+      }
+    }
+
+    .hero-rings-breathe {
+      animation: organicBreathe 7s ease-in-out infinite;
+    }
+
+    /* Scroll Reveal Engine: GPU Accelerated Translation & Opacity */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+    .reveal-delay-5 { transition-delay: 0.40s; }
+
     /* Carousel Hide Scrollbar */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -243,6 +314,14 @@
       }
       .hero-rings-container {
         transition: none !important;
+      }
+      .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .hero-rings-breathe {
+        animation: none !important;
       }
     }
   </style>
@@ -337,7 +416,7 @@
 
     <!-- LINGKARAN KONSENTRIS HIJAU BESAR (EXPANDS OUTWARD ON SCROLL) -->
     <div id="hero-rings" class="hero-rings-container">
-      <svg viewBox="0 0 1000 1000" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1000 1000" class="w-full h-full hero-rings-breathe" fill="none" xmlns="http://www.w3.org/2000/svg">
 
         <!-- Outer Ring: Soft Mint / Sage Green (Expanding stroke & radius) -->
         <circle id="ring-1" cx="500" cy="500" r="470" stroke="#A7F3D0" stroke-width="36" stroke-dasharray="16 12"
@@ -370,7 +449,7 @@
 
       <!-- Sculpted Neumorphic Monolith Panel (Seamless Depth without AI Slop) -->
       <div
-        class="p-7 sm:p-12 md:p-14 rounded-[32px] neu-extruded-lg transition-all duration-300 relative overflow-hidden">
+        class="p-7 sm:p-12 md:p-14 rounded-[32px] neu-extruded-lg transition-all duration-300 relative overflow-hidden reveal-on-scroll">
 
         <!-- Tactile Category Indicator -->
         <div
@@ -438,7 +517,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Section Title -->
-      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16 reveal-on-scroll">
         <div
           class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full neu-sunken-sm text-xs font-bold text-emerald-800 uppercase tracking-wider">
           <i data-lucide="info" class="w-3.5 h-3.5"></i>
@@ -460,10 +539,10 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
         <!-- Pilar 1: Ergonomi Muskuloskeletal -->
-        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover reveal-on-scroll reveal-delay-1">
           <div class="space-y-4">
             <div
-              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 transition-all">
+              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 icon-cavity">
               <i data-lucide="activity" class="w-7 h-7"></i>
             </div>
             <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -482,10 +561,10 @@
         </div>
 
         <!-- Pilar 2: Kesehatan Penglihatan -->
-        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover reveal-on-scroll reveal-delay-2">
           <div class="space-y-4">
             <div
-              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 transition-all">
+              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 icon-cavity">
               <i data-lucide="eye" class="w-7 h-7"></i>
             </div>
             <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -504,10 +583,10 @@
         </div>
 
         <!-- Pilar 3: Keselamatan Elektrik & Lab -->
-        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover reveal-on-scroll reveal-delay-3">
           <div class="space-y-4">
             <div
-              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 transition-all">
+              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 icon-cavity">
               <i data-lucide="zap" class="w-7 h-7"></i>
             </div>
             <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -526,10 +605,10 @@
         </div>
 
         <!-- Pilar 4: Psikososial & Kesejahteraan Mental -->
-        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+        <div class="neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover reveal-on-scroll reveal-delay-4">
           <div class="space-y-4">
             <div
-              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 transition-all">
+              class="w-14 h-14 rounded-2xl neu-sunken flex items-center justify-center text-emerald-700 icon-cavity">
               <i data-lucide="smile" class="w-7 h-7"></i>
             </div>
             <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-emerald-700 transition-colors">
@@ -550,7 +629,7 @@
       </div>
 
       <!-- Quick Informative Fact Ribbon -->
-      <div class="mt-12 neu-sunken rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="mt-12 neu-sunken rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 reveal-on-scroll">
         <div class="flex items-center gap-4">
           <div class="w-12 h-12 rounded-2xl neu-extruded text-emerald-700 flex items-center justify-center shrink-0">
             <i data-lucide="alert-triangle" class="w-6 h-6"></i>
@@ -572,7 +651,7 @@
       <!-- ===================================================================== -->
       <!-- INTERACTIVE NEUMORPHIC WIDGET: AUDIT CEPAT ERGONOMI WORKSTATION       -->
       <!-- ===================================================================== -->
-      <div class="mt-14 neu-extruded rounded-[32px] p-7 sm:p-10">
+      <div class="mt-14 neu-extruded rounded-[32px] p-7 sm:p-10 reveal-on-scroll">
         <div class="max-w-3xl mb-8 space-y-2">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full neu-sunken-sm text-xs font-bold text-emerald-800">
             <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
@@ -697,7 +776,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Header Section Tokoh -->
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4 reveal-on-scroll">
         <div class="space-y-2 max-w-xl">
           <div
             class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full neu-sunken-sm text-xs font-bold text-emerald-800 uppercase tracking-wider">
@@ -727,15 +806,15 @@
 
       <!-- Horizontal Carousel Container for 5 Members -->
       <div id="members-carousel"
-        class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-1 snap-x snap-mandatory">
+        class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-1 snap-x snap-mandatory reveal-on-scroll">
 
         <!-- Tokoh 1 (Pertama: GRACE MARIN SITANGGANG) -->
         <div
-          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-5">
             <!-- Tactile Avatar Badge -->
             <div
-              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1">
+              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1 icon-cavity">
               <div class="w-full h-full rounded-xl neu-extruded-sm flex items-center justify-center font-display text-xl font-black text-emerald-800">
                 GM
               </div>
@@ -765,10 +844,10 @@
 
         <!-- Tokoh 2: M. Erfand R.T.S -->
         <div
-          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-5">
             <div
-              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1">
+              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1 icon-cavity">
               <div class="w-full h-full rounded-xl neu-extruded-sm flex items-center justify-center font-display text-xl font-black text-emerald-800">
                 ME
               </div>
@@ -798,10 +877,10 @@
 
         <!-- Tokoh 3: Tanaya Firdauzi -->
         <div
-          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-5">
             <div
-              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1">
+              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1 icon-cavity">
               <div class="w-full h-full rounded-xl neu-extruded-sm flex items-center justify-center font-display text-xl font-black text-teal-800">
                 TF
               </div>
@@ -831,10 +910,10 @@
 
         <!-- Tokoh 4: Achmad Hasby -->
         <div
-          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-5">
             <div
-              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1">
+              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1 icon-cavity">
               <div class="w-full h-full rounded-xl neu-extruded-sm flex items-center justify-center font-display text-xl font-black text-emerald-800">
                 AH
               </div>
@@ -864,10 +943,10 @@
 
         <!-- Tokoh 5: Yoga Pratama -->
         <div
-          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-5">
             <div
-              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1">
+              class="w-16 h-16 rounded-2xl neu-sunken flex items-center justify-center p-1 icon-cavity">
               <div class="w-full h-full rounded-xl neu-extruded-sm flex items-center justify-center font-display text-xl font-black text-green-800">
                 YP
               </div>
@@ -908,7 +987,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <!-- Header Section -->
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-6 reveal-on-scroll">
         <div class="space-y-3 max-w-2xl">
           <div
             class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full neu-sunken-sm text-xs font-bold text-emerald-800 uppercase tracking-wider">
@@ -940,7 +1019,7 @@
       </div>
 
       <!-- Neumorphic Filter Category Rack (Interactive Pill Bar) -->
-      <div class="neu-sunken p-1.5 rounded-2xl flex flex-wrap items-center gap-1.5 mb-8 max-w-fit">
+      <div class="neu-sunken p-1.5 rounded-2xl flex flex-wrap items-center gap-1.5 mb-8 max-w-fit reveal-on-scroll">
         <button onclick="filterArticles('all', this)" class="article-filter-btn px-4 py-2 rounded-xl text-xs font-extrabold neu-extruded-sm text-emerald-900 transition-all">
           Semua Topik
         </button>
@@ -963,11 +1042,11 @@
 
       <!-- CAROUSEL LOOP TRACK CONTAINER -->
       <div id="articles-loop-track"
-        class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-6 pt-2 snap-x snap-mandatory">
+        class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-6 pt-2 snap-x snap-mandatory reveal-on-scroll">
 
         <!-- Artikel 1: Investigasi Utama -->
         <div data-category="investigasi"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-red-700">
@@ -999,7 +1078,7 @@
 
         <!-- Artikel 2: Kisah Adrian -->
         <div data-category="kisah-nyata"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-emerald-800">
@@ -1031,7 +1110,7 @@
 
         <!-- Artikel 3: Riset Dark Mode -->
         <div data-category="riset-medis"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-teal-800">
@@ -1063,7 +1142,7 @@
 
         <!-- Artikel 4: Insiden Lab -->
         <div data-category="keamanan-lab"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-amber-800">
@@ -1095,7 +1174,7 @@
 
         <!-- Artikel 5: Kisah Siska & Burnout -->
         <div data-category="kisah-nyata"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-emerald-800">
@@ -1127,7 +1206,7 @@
 
         <!-- Artikel 6: Standing Desk vs Kursi -->
         <div data-category="riset-medis"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-teal-800">
@@ -1159,7 +1238,7 @@
 
         <!-- Artikel 7: Hak untuk Disconnect -->
         <div data-category="kebijakan-k3"
-          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-extruded rounded-3xl p-7 flex flex-col justify-between group neu-card-hover">
           <div class="space-y-4">
             <div class="flex items-center justify-between text-xs">
               <span class="px-3 py-1 rounded-full neu-sunken-sm text-[11px] font-extrabold text-emerald-800">
@@ -1267,9 +1346,9 @@
   <!-- MODAL BACA CERITA LENGKAP (POP-UP INTERAKTIF NEUMORPHIC)                 -->
   <!-- ========================================================================= -->
   <div id="story-modal"
-    class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 transition-all">
-    <div
-      class="neu-extruded-lg rounded-[32px] max-w-2xl w-full p-6 sm:p-9 shadow-2xl relative space-y-4 border border-white max-h-[90vh] overflow-y-auto">
+    class="fixed inset-0 z-50 hidden opacity-0 bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4 transition-opacity duration-300">
+    <div id="story-modal-card"
+      class="neu-extruded-lg rounded-[32px] max-w-2xl w-full p-6 sm:p-9 shadow-2xl relative space-y-4 border border-white max-h-[90vh] overflow-y-auto transform scale-95 translate-y-4 transition-all duration-300">
 
       <div class="flex items-center justify-between border-b border-slate-300/40 pb-3">
         <span id="modal-tag" class="px-3 py-1 rounded-full neu-sunken-sm text-xs font-bold text-emerald-800">
@@ -1321,8 +1400,9 @@
     }
 
     // =========================================================================
-    // SCROLL TRIGGER: ANIMASI LINGKARAN KONSENTRIS DI HERO YANG MELEBAR
+    // SCROLL TRIGGER: ANIMASI LINGKARAN KONSENTRIS DI HERO & HEADER ELEVATION
     // =========================================================================
+    const headerEl = document.querySelector('header');
     const heroRings = document.getElementById('hero-rings');
     const ring1 = document.getElementById('ring-1');
     const ring2 = document.getElementById('ring-2');
@@ -1333,7 +1413,16 @@
     let ticking = false;
 
     function handleScrollExpansion() {
-      const scrollY = window.scrollY || window.pageYOffset;
+      const scrollY = window.scrollY || window.pageYOffset || 0;
+
+      // Header dynamic elevation on scroll
+      if (headerEl) {
+        if (scrollY > 20) {
+          headerEl.classList.add('neu-glass-header-scrolled');
+        } else {
+          headerEl.classList.remove('neu-glass-header-scrolled');
+        }
+      }
 
       // Hitung skala ekspansi lingkaran berdasarkan scroll
       const scaleValue = 1 + Math.min(scrollY * 0.0012, 0.95);
@@ -1367,8 +1456,83 @@
     handleScrollExpansion();
 
     // =========================================================================
+    // SCROLL REVEAL OBSERVER (GPU Accelerated, Zero Jank)
+    // =========================================================================
+    function initScrollReveal() {
+      const revealElements = document.querySelectorAll('.reveal-on-scroll');
+      if (!revealElements || !revealElements.length) return;
+
+      const isReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (typeof IntersectionObserver === 'undefined' || isReduced) {
+        revealElements.forEach(el => el.classList.add('revealed'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealElements.forEach(el => observer.observe(el));
+    }
+
+    initScrollReveal();
+
+    // =========================================================================
     // INTERACTIVE AUDIT ERGONOMI KALKULATOR
     // =========================================================================
+    let prevErgoScore = 75;
+    let ergoAnimFrame = null;
+
+    function animateErgoCounter(target) {
+      const percentEl = document.getElementById('ergo-percentage');
+      if (!percentEl) return;
+      const start = prevErgoScore;
+      prevErgoScore = target;
+
+      const isReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (isReduced) {
+        percentEl.textContent = `${target}%`;
+        return;
+      }
+
+      const duration = 300;
+      let startTs = null;
+
+      function step(ts) {
+        if (typeof ts !== 'number') {
+          percentEl.textContent = `${target}%`;
+          return;
+        }
+        if (!startTs) startTs = ts;
+        const elapsed = ts - startTs;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(start + (target - start) * ease);
+        percentEl.textContent = `${current}%`;
+        if (progress < 1) {
+          ergoAnimFrame = window.requestAnimationFrame(step);
+        } else {
+          percentEl.textContent = `${target}%`;
+        }
+      }
+
+      percentEl.textContent = `${target}%`;
+      if (typeof window !== 'undefined' && window.requestAnimationFrame) {
+        if (ergoAnimFrame && window.cancelAnimationFrame) {
+          window.cancelAnimationFrame(ergoAnimFrame);
+        }
+        ergoAnimFrame = window.requestAnimationFrame(step);
+      }
+    }
+
     function calculateErgoScore() {
       const monitor = document.getElementById('check-monitor');
       const rest = document.getElementById('check-rest');
@@ -1409,7 +1573,7 @@
       const titleEl = document.getElementById('ergo-verdict-title');
       const descEl = document.getElementById('ergo-verdict-desc');
 
-      if (percentEl) percentEl.textContent = `${score}%`;
+      animateErgoCounter(score);
       if (fillEl) fillEl.style.width = `${score}%`;
 
       if (score === 100) {
@@ -1516,6 +1680,14 @@
         const cardCat = card.getAttribute('data-category');
         if (category === 'all' || cardCat === category) {
           card.classList.remove('hidden');
+          // Smooth micro-interaction on filter
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.96)';
+          window.requestAnimationFrame(() => {
+            card.style.transition = 'opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+            card.style.opacity = '1';
+            card.style.transform = 'scale(1)';
+          });
         } else {
           card.classList.add('hidden');
         }
@@ -1661,19 +1833,53 @@
       const item = newsData[newsId];
       if (!item) return;
 
+      const modal = document.getElementById('story-modal');
+      const card = document.getElementById('story-modal-card');
+
       document.getElementById('modal-tag').textContent = item.tag;
       document.getElementById('modal-title').textContent = item.title;
       document.getElementById('modal-author').textContent = `Oleh ${item.author}`;
       document.getElementById('modal-date').textContent = item.date;
       document.getElementById('modal-body').innerHTML = item.body;
 
-      document.getElementById('story-modal').classList.remove('hidden');
+      if (modal) {
+        modal.classList.remove('hidden');
+        window.requestAnimationFrame(() => {
+          modal.classList.remove('opacity-0');
+          modal.classList.add('opacity-100');
+          if (card) {
+            card.classList.remove('scale-95', 'translate-y-4');
+            card.classList.add('scale-100', 'translate-y-0');
+          }
+        });
+      }
       document.body.classList.add('overflow-hidden');
     }
 
     function closeNewsModal() {
-      document.getElementById('story-modal').classList.add('hidden');
+      const modal = document.getElementById('story-modal');
+      const card = document.getElementById('story-modal-card');
+
+      if (modal) {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+      }
+      if (card) {
+        card.classList.remove('scale-100', 'translate-y-0');
+        card.classList.add('scale-95', 'translate-y-4');
+      }
       document.body.classList.remove('overflow-hidden');
+
+      const isReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (isReduced) {
+        if (modal) modal.classList.add('hidden');
+      } else {
+        setTimeout(() => {
+          if (modal && modal.classList.contains('opacity-0')) {
+            modal.classList.add('hidden');
+          }
+        }, 280);
+      }
     }
 
     // Tutup modal jika klik di luar atau tekan ESC

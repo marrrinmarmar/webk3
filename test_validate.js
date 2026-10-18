@@ -51,12 +51,16 @@ function getOrCreate(id) {
 
 const mockDocument = {
   getElementById: (id) => getOrCreate(id),
+  querySelector: (selector) => new MockElement('', selector),
   querySelectorAll: (selector) => {
     if (selector === '.article-filter-btn') return [new MockElement(), new MockElement()];
     if (selector === '.article-loop-card') {
       const c1 = new MockElement(); c1.setAttribute('data-category', 'investigasi');
       const c2 = new MockElement(); c2.setAttribute('data-category', 'riset');
       return [c1, c2];
+    }
+    if (selector === '.reveal-on-scroll') {
+      return [new MockElement(), new MockElement()];
     }
     return [];
   },
@@ -67,7 +71,8 @@ const mockDocument = {
 const mockWindow = {
   scrollY: 100,
   addEventListener: () => {},
-  requestAnimationFrame: (cb) => cb()
+  requestAnimationFrame: (cb) => cb(),
+  matchMedia: () => ({ matches: false })
 };
 
 // Evaluate script inside mock context
@@ -128,10 +133,14 @@ console.log('Testing modal open/close...');
 exported.openNewsModal('survei-2026');
 assert.strictEqual(getOrCreate('modal-title').textContent, exported.newsData['survei-2026'].title);
 assert(!getOrCreate('story-modal').classList.contains('hidden'), 'Modal should not have hidden');
+assert(getOrCreate('story-modal').classList.contains('opacity-100'), 'Modal should have opacity-100');
 exported.closeNewsModal();
-assert(getOrCreate('story-modal').classList.contains('hidden'), 'Modal should have hidden');
-console.log('✔ openNewsModal & closeNewsModal test passed!');
+assert(getOrCreate('story-modal').classList.contains('opacity-0'), 'Modal should have opacity-0 during transition');
+setTimeout(() => {
+  assert(getOrCreate('story-modal').classList.contains('hidden'), 'Modal should have hidden after transition duration');
+  console.log('✔ openNewsModal & closeNewsModal test passed!');
 
-console.log('\n========================================');
-console.log('ALL UNIT TESTS PASSED (100% SUCCESS)');
-console.log('========================================');
+  console.log('\n========================================');
+  console.log('ALL UNIT TESTS PASSED (100% SUCCESS)');
+  console.log('========================================');
+}, 320);
