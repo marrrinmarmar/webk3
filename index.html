@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kthree | Keselamatan & Kesehatan Kerja Programmer</title>
+  <meta name="description"
+    content="Portal K3 modern khusus programmer, software engineer, dan pekerja tech. Panduan ergonomi koding, kesehatan mata, dan berita keselamatan kerja terkini.">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Fredoka for playful yet professional typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            display: ['"Fredoka"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            k3: {
+              50: '#F0FDF4',
+              100: '#DCFCE7',
+              200: '#BBF7D0',
+              300: '#86EFAC',
+              400: '#4ADE80',
+              500: '#22C55E',
+              600: '#16A34A',
+              700: '#15803D',
+              800: '#166534',
+              900: '#14532D',
+              950: '#052E16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Neumorphism Soft UI Styles (Green-Tinted Base) -->
+  <style>
+    :root {
+      --neu-bg: #EEF5F1;
+      --neu-shadow-dark: #C6D6CB;
+      --neu-shadow-light: #FFFFFF;
+    }
+
+    body {
+      background-color: var(--neu-bg);
+      color: #1E293B;
+    }
+
+    /* Soft UI Extrusions (Raised) */
+    .neu-flat {
+      background: var(--neu-bg);
+      box-shadow: 8px 8px 18px var(--neu-shadow-dark),
+        -8px -8px 18px var(--neu-shadow-light);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    .neu-flat-sm {
+      background: var(--neu-bg);
+      box-shadow: 4px 4px 10px var(--neu-shadow-dark),
+        -4px -4px 10px var(--neu-shadow-light);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .neu-flat-lg {
+      background: var(--neu-bg);
+      box-shadow: 14px 14px 30px var(--neu-shadow-dark),
+        -14px -14px 30px var(--neu-shadow-light);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+    }
+
+    /* Soft UI Inset (Sunken) */
+    .neu-inset {
+      background: var(--neu-bg);
+      box-shadow: inset 4px 4px 9px var(--neu-shadow-dark),
+        inset -4px -4px 9px var(--neu-shadow-light);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .neu-inset-sm {
+      background: var(--neu-bg);
+      box-shadow: inset 2px 2px 6px var(--neu-shadow-dark),
+        inset -2px -2px 6px var(--neu-shadow-light);
+    }
+
+    /* Soft UI Interactive Button */
+    .neu-btn {
+      background: var(--neu-bg);
+      box-shadow: 5px 5px 12px var(--neu-shadow-dark),
+        -5px -5px 12px var(--neu-shadow-light);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .neu-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 7px 7px 16px var(--neu-shadow-dark),
+        -7px -7px 16px var(--neu-shadow-light);
+    }
+
+    .neu-btn:active,
+    .neu-btn.active {
+      transform: translateY(0.5px);
+      box-shadow: inset 3px 3px 7px var(--neu-shadow-dark),
+        inset -3px -3px 7px var(--neu-shadow-light);
+    }
+
+    /* High-contrast Green CTA */
+    .neu-cta {
+      background: linear-gradient(135deg, #16A34A 0%, #059669 100%);
+      color: #FFFFFF;
+      box-shadow: 6px 6px 18px rgba(22, 163, 74, 0.35),
+        -4px -4px 12px var(--neu-shadow-light);
+      transition: all 0.25s ease;
+    }
+
+    .neu-cta:hover {
+      background: linear-gradient(135deg, #15803D 0%, #047857 100%);
+      box-shadow: 8px 8px 24px rgba(22, 163, 74, 0.45),
+        -5px -5px 14px var(--neu-shadow-light);
+      transform: translateY(-2px);
+    }
+
+    .neu-cta:active {
+      transform: translateY(0.5px);
+      box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.25),
+        4px 4px 10px rgba(22, 163, 74, 0.3);
+    }
+
+    /* Concentric Circles Scroll Trigger Wrapper */
+    .hero-rings-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 720px;
+      height: 720px;
+      pointer-events: none;
+      z-index: 0;
+      transition: transform 0.12s ease-out, opacity 0.15s ease-out;
+      will-change: transform;
+    }
+
+    @media (min-width: 768px) {
+      .hero-rings-container {
+        width: 1050px;
+        height: 1050px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .hero-rings-container {
+        width: 1300px;
+        height: 1300px;
+      }
+    }
+
+    /* Carousel Hide Scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-k3-200 selection:text-k3-900 overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+  <!-- ========================================================================= -->
+  <!-- 1. HEADER / NAVBAR (Soft UI Neumorphism, Brand 'Kthree', Green Accents)  -->
+  <!-- ========================================================================= -->
+  <header
+    class="sticky top-0 z-50 neu-flat backdrop-blur-md bg-[#EEF5F1]/90 border-b border-white/60 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+
+        <!-- Logo Brand: Teks "Kthree" (No Logo Graphic, Pure Typography) -->
+        <a href="#" class="group flex items-center gap-2.5 focus:outline-none">
+          <div
+            class="w-10 h-10 rounded-2xl neu-flat flex items-center justify-center group-hover:neu-inset transition-all">
+            <span class="w-4 h-4 rounded-full bg-gradient-to-tr from-k3-600 via-emerald-400 to-lime-300"></span>
+          </div>
+          <span
+            class="font-display text-3xl font-extrabold tracking-tight text-slate-800 group-hover:text-k3-700 transition-colors">
+            Kthree<span class="text-k3-600">.</span>
+          </span>
+        </a>
+
+        <!-- Main Navigation Links -->
+        <nav class="hidden md:flex items-center space-x-3 text-sm font-bold text-slate-700">
+          <a href="#hero"
+            class="neu-btn px-4 py-2 rounded-xl hover:text-k3-700 transition-colors flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-k3-600"></i>
+            <span>Beranda</span>
+          </a>
+          <a href="#tentang-k3"
+            class="neu-btn px-4 py-2 rounded-xl hover:text-k3-700 transition-colors flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-4 h-4 text-k3-600"></i>
+            <span>Tentang K3</span>
+          </a>
+          <a href="#tokoh-k3"
+            class="neu-btn px-4 py-2 rounded-xl hover:text-k3-700 transition-colors flex items-center gap-2">
+            <i data-lucide="users" class="w-4 h-4 text-k3-600"></i>
+            <span>kelompok </span>
+          </a>
+          <a href="#berita-cerita"
+            class="neu-btn px-4 py-2 rounded-xl hover:text-k3-700 transition-colors flex items-center gap-2">
+            <i data-lucide="newspaper" class="w-4 h-4 text-k3-600"></i>
+            <span>Cerita & Berita</span>
+          </a>
+        </nav>
+
+        <!-- Right Side: CTA Button -->
+        <div class="flex items-center space-x-3 sm:space-x-4">
+          <a href="#berita-cerita"
+            class="neu-cta px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 shadow-md group">
+            <span>Baca Berita K3</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+
+          <!-- Mobile Toggle -->
+          <button id="mobile-toggle" class="md:hidden neu-btn p-2.5 rounded-xl text-slate-700"
+            aria-label="Toggle Navigation Menu">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="hidden md:hidden px-4 pb-6 pt-2 neu-inset border-t border-slate-300/40 space-y-2">
+      <a href="#hero" class="block neu-btn px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700">
+        Beranda
+      </a>
+      <a href="#tentang-k3" class="block neu-btn px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700">
+        Tentang K3 Programmer
+      </a>
+      <a href="#tokoh-k3" class="block neu-btn px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700">
+        Kelompok K3 1A
+      </a>
+      <a href="#berita-cerita" class="block neu-btn px-4 py-2.5 rounded-xl text-sm font-bold text-slate-700">
+        Cerita & Berita K3
+      </a>
+    </div>
+  </header>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. HERO SECTION (SCROLL TRIGGER CONCENTRIC CIRCLES + HIGH VISIBILITY TEXT)-->
+  <!-- ========================================================================= -->
+  <section id="hero" class="relative pt-12 sm:pt-16 pb-20 lg:pb-28 overflow-hidden flex items-center min-h-[85vh]">
+
+    <!-- LINGKARAN KONSENTRIS HIJAU BESAR (EXPANDS OUTWARD ON SCROLL) -->
+    <div id="hero-rings" class="hero-rings-container">
+      <svg viewBox="0 0 1000 1000" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- Outer Ring: Soft Mint / Sage Green (Expanding stroke & radius) -->
+        <circle id="ring-1" cx="500" cy="500" r="470" stroke="#86EFAC" stroke-width="36" stroke-dasharray="16 12"
+          stroke-opacity="0.38" />
+
+        <!-- Ring 2: Fresh Emerald Green -->
+        <circle id="ring-2" cx="500" cy="500" r="390" stroke="#4ADE80" stroke-width="42" stroke-opacity="0.48" />
+
+        <!-- Ring 3: Vibrant Green Brand -->
+        <circle id="ring-3" cx="500" cy="500" r="305" stroke="#22C55E" stroke-width="44" stroke-opacity="0.55" />
+
+        <!-- Ring 4: Deep Leaf Green -->
+        <circle id="ring-4" cx="500" cy="500" r="220" stroke="#16A34A" stroke-width="48" stroke-opacity="0.6" />
+
+        <!-- Ring 5: Forest Green Inner Ring -->
+        <circle id="ring-5" cx="500" cy="500" r="140" stroke="#15803D" stroke-width="40" stroke-opacity="0.65" />
+
+        <!-- Glowing Central Core -->
+        <circle cx="500" cy="500" r="60" fill="#22C55E" fill-opacity="0.25" />
+        <circle cx="500" cy="500" r="28" fill="#16A34A" fill-opacity="0.8" />
+      </svg>
+    </div>
+
+    <!-- Soft Ambient Radial Backdrop -->
+    <div class="absolute inset-0 bg-radial from-transparent via-[#EEF5F1]/55 to-[#EEF5F1] pointer-events-none z-0">
+    </div>
+
+    <!-- Hero Content: Protected with a Soft Translucent White Layer for Maximum Readability -->
+    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center w-full">
+
+      <!-- Frosted Soft White Backdrop Plate (Opacity Rendah + Backdrop Blur) -->
+      <div
+        class="p-7 sm:p-11 md:p-14 rounded-[28px] bg-white/75 backdrop-blur-md border border-white/90 shadow-xl shadow-k3-900/5 neu-flat-sm transition-all duration-300">
+
+        <!-- Badge (Soft UI) -->
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full neu-flat-sm text-xs sm:text-sm font-bold text-slate-700 mb-6 bg-white/80">
+          <span class="w-2.5 h-2.5 rounded-full bg-k3-500 animate-ping"></span>
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-k3-800 via-k3-600 to-emerald-600 font-extrabold">
+            Keselamatan & Kesehatan Kerja Era Digital
+          </span>
+          <span class="px-2 py-0.5 rounded-full neu-inset-sm text-[10px] text-k3-900 font-extrabold uppercase">
+            Edisi 2026
+          </span>
+        </div>
+
+        <!-- Main Headline with Crisp Text Shadow & Deep Contrast -->
+        <h1
+          class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.14] drop-shadow-[0_2px_3px_rgba(255,255,255,0.9)]">
+          Kesehatan Anda, <br class="hidden sm:inline">
+          <span
+            class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-k3-800 via-k3-600 to-emerald-600 drop-shadow-sm">
+            Pondasi Setiap Baris Kode.
+            <!-- Curved Green Underline -->
+            <svg class="absolute -bottom-2 sm:-bottom-3.5 left-0 w-full h-4 sm:h-5 text-k3-500 opacity-90"
+              viewBox="0 0 260 20" fill="none">
+              <path d="M4 14C50 4 150 2 256 12C200 16 110 18 20 18" stroke="currentColor" stroke-width="4.5"
+                stroke-linecap="round" />
+            </svg>
+          </span>
+        </h1>
+
+        <!-- Sub-headline with High Legibility -->
+        <p
+          class="mt-6 text-base sm:text-lg lg:text-xl text-slate-700 font-medium max-w-2xl mx-auto leading-relaxed drop-shadow-[0_1px_2px_rgba(255,255,255,0.7)]">
+          Selamat datang di <strong class="text-slate-900 font-extrabold">Kthree</strong>. Ruang edukasi K3 modern bagi
+          para developer, tech worker, dan pengelola lab komputer untuk melindungi tulang belakang, pandangan mata, dan
+          fokus mental saat berkarya.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#tentang-k3"
+            class="neu-cta px-8 py-3.5 rounded-full text-base font-bold flex items-center gap-2.5 shadow-xl group">
+            <i data-lucide="shield" class="w-5 h-5"></i>
+            <span>Pelajari K3 Developer</span>
+            <i data-lucide="arrow-down" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+          </a>
+
+          <a href="#tokoh-k3"
+            class="neu-btn px-7 py-3.5 rounded-full text-base font-bold text-slate-700 flex items-center gap-2 hover:text-k3-700">
+            <i data-lucide="users" class="w-5 h-5 text-k3-600"></i>
+            <span>Anggota Kelompok</span>
+          </a>
+        </div>
+
+        <!-- Scroll Indicator Hint -->
+        <div
+          class="mt-8 inline-flex items-center gap-2 text-xs font-semibold text-slate-600 neu-inset-sm px-4 py-1.5 rounded-full bg-white/60">
+          <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-k3-600 animate-bounce"></i>
+          <span>Gulir ke bawah: Lingkaran konsentris di latar belakang melebar dinamis</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 3. TENTANG K3 SECTION                                                     -->
+  <!-- ========================================================================= -->
+  <section id="tentang-k3" class="py-16 lg:py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Section Title -->
+      <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+        <div
+          class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full neu-inset text-xs font-bold text-k3-800 uppercase tracking-wider">
+          <i data-lucide="info" class="w-3.5 h-3.5"></i>
+          <span>Mengenal K3 Dunia Rekayasa Perangkat Lunak</span>
+        </div>
+
+        <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+          Apa Itu K3 Bagi Seorang Programmer?
+        </h2>
+
+        <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+          K3 (Keselamatan, Kesehatan, Keamanan Kerja dan Lingkungan) bukan sekadar helm proyek dan sepatu boots. Bagi
+          developer, bahaya kerja bersifat <span class="text-k3-700 font-bold">mikrotrauma kumulatif</span> yang
+          menyerang saraf, tulang, retina mata, dan kondisi psikologis secara perlahan namun fatal.
+        </p>
+      </div>
+
+      <!-- 4 Core Pillars of K3 for Software Engineers (Neumorphic Cards) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Pilar 1: Ergonomi Muskuloskeletal -->
+        <div class="neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div
+              class="w-14 h-14 rounded-2xl neu-flat flex items-center justify-center text-k3-700 group-hover:neu-inset transition-all">
+              <i data-lucide="activity" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors">
+              Ergonomi & Postur Kerja
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Mencegah <em>Repetitive Strain Injury (RSI)</em> dan saraf kejepit lorong karpal akibat mengetik keyboard
+              tanpa palm rest dengan posisi pergelangan tangan menunduk atau mendongak ekstrem.
+            </p>
+          </div>
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs font-bold text-k3-800">
+            <span>Fokus: Lumbar L1-L5 & Karpal</span>
+            <i data-lucide="check-circle" class="w-4 h-4 text-k3-600"></i>
+          </div>
+        </div>
+
+        <!-- Pilar 2: Kesehatan Penglihatan -->
+        <div class="neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div
+              class="w-14 h-14 rounded-2xl neu-flat flex items-center justify-center text-k3-700 group-hover:neu-inset transition-all">
+              <i data-lucide="eye" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors">
+              Proteksi Penglihatan (CVS)
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Mengatasi <em>Computer Vision Syndrome</em> dan mata kering. Saat fokus menatap kode, frekuensi kedipan
+              mata turun dari 18x/menit menjadi hanya 5x/menit, mempercepat penguapan air mata.
+            </p>
+          </div>
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs font-bold text-k3-800">
+            <span>Fokus: Aturan 20-20-20 & Lux</span>
+            <i data-lucide="check-circle" class="w-4 h-4 text-k3-600"></i>
+          </div>
+        </div>
+
+        <!-- Pilar 3: Keselamatan Elektrik & Lab -->
+        <div class="neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div
+              class="w-14 h-14 rounded-2xl neu-flat flex items-center justify-center text-k3-700 group-hover:neu-inset transition-all">
+              <i data-lucide="zap" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors">
+              Keamanan Listrik & Lab
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Penerapan kabel pembumian (grounding) pada workstation PC, manajemen kabel bebas jeratan (cable tidying),
+              serta proteksi bahaya arus pendek listrik di ruang server dan lab komputer.
+            </p>
+          </div>
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs font-bold text-k3-800">
+            <span>Fokus: Grounding & APAR CO2</span>
+            <i data-lucide="check-circle" class="w-4 h-4 text-k3-600"></i>
+          </div>
+        </div>
+
+        <!-- Pilar 4: Psikososial & Kesejahteraan Mental -->
+        <div class="neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div
+              class="w-14 h-14 rounded-2xl neu-flat flex items-center justify-center text-k3-700 group-hover:neu-inset transition-all">
+              <i data-lucide="smile" class="w-7 h-7"></i>
+            </div>
+            <h3 class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors">
+              Kesehatan Mental & Stres
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Mitigasi kelelahan mental akibat jam lembur tak berujung, on-call alert tengah malam, dan absennya batas
+              antara kehidupan pribadi dengan jam kerja saat WFH.
+            </p>
+          </div>
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs font-bold text-k3-800">
+            <span>Fokus: Anti-Burnout & Shutdown</span>
+            <i data-lucide="check-circle" class="w-4 h-4 text-k3-600"></i>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Informative Fact Ribbon -->
+      <div class="mt-12 neu-inset rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl neu-flat text-k3-700 flex items-center justify-center shrink-0">
+            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold text-slate-900">Standar Resmi K3 Lingkungan Kerja</h4>
+            <p class="text-xs text-slate-600 mt-0.5">
+              Mengacu pada <strong>Permenaker RI No. 5 Tahun 2018</strong> dan <strong>ISO 9241-5</strong> tentang
+              persyaratan ergonomis tata letak stasiun kerja monitor komputer (VDT).
+            </p>
+          </div>
+        </div>
+        <a href="#tokoh-k3"
+          class="shrink-0 neu-btn px-5 py-2.5 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900">
+          Lihat Anggota Kelompok →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 4. CAROUSEL TOKOH (5 ANGGOTA KELOMPOK DI BAWAH TENTANG K3)                -->
+  <!-- ========================================================================= -->
+  <section id="tokoh-k3" class="py-16 lg:py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Header Section Tokoh -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+        <div class="space-y-2 max-w-xl">
+          <div
+            class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full neu-inset text-xs font-bold text-k3-800 uppercase tracking-wider">
+            <i data-lucide="users" class="w-3.5 h-3.5"></i>
+            <span>Profil Kelompok</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Anggota Kelompok
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base">
+            Kelompok dalam merumuskan dan mengedukasi standar keselamatan kerja digital.
+          </p>
+        </div>
+
+        <!-- Carousel Navigation Controls for Members -->
+        <div class="flex items-center space-x-3 shrink-0">
+          <button id="member-prev" type="button" aria-label="Geser tokoh ke kiri"
+            class="w-11 h-11 rounded-2xl neu-btn text-slate-700 hover:text-k3-700 flex items-center justify-center transition-all">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button id="member-next" type="button" aria-label="Geser tokoh ke kanan"
+            class="w-11 h-11 rounded-2xl neu-btn text-slate-700 hover:text-k3-700 flex items-center justify-center transition-all">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Carousel Container for 5 Members -->
+      <div id="members-carousel"
+        class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 pt-1 snap-x snap-mandatory">
+
+        <!-- Tokoh 1 (Pertama: GRACE MARIN SITANGGANG) -->
+        <div
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-5">
+            <!-- Avatar Initials Badge -->
+            <div
+              class="w-16 h-16 rounded-2xl neu-inset flex items-center justify-center font-display text-2xl font-black text-k3-700 group-hover:neu-flat transition-all">
+              GM
+            </div>
+
+            <div class="space-y-1.5">
+              <span
+                class="text-[10px] font-extrabold uppercase tracking-wider text-k3-800 bg-k3-100/70 px-2.5 py-0.5 rounded-md inline-block">
+                Absen 06
+              </span>
+              <h3
+                class="font-display text-xl sm:text-2xl font-black text-slate-900 group-hover:text-k3-700 transition-colors uppercase leading-tight">
+                GRACE MARIN SITANGGANG
+              </h3>
+              <p class="text-xs font-semibold text-slate-500">
+                Pengembang
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs text-k3-700 font-bold">
+            <span>Anggota #1</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Tokoh 2: M. Erfand R.T.S -->
+        <div
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-5">
+            <div
+              class="w-16 h-16 rounded-2xl neu-inset flex items-center justify-center font-display text-2xl font-black text-emerald-700 group-hover:neu-flat transition-all">
+              ME
+            </div>
+
+            <div class="space-y-1.5">
+              <span
+                class="text-[10px] font-extrabold uppercase tracking-wider text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-md inline-block">
+                Absen 00
+              </span>
+              <h3
+                class="font-display text-xl sm:text-2xl font-black text-slate-900 group-hover:text-emerald-700 transition-colors leading-tight">
+                M. Erfand R.T.S
+              </h3>
+              <p class="text-xs font-semibold text-slate-500">
+                Koordinator
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs text-emerald-700 font-bold">
+            <span>Anggota #2</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Tokoh 3: Tanaya Firdauzi -->
+        <div
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-5">
+            <div
+              class="w-16 h-16 rounded-2xl neu-inset flex items-center justify-center font-display text-2xl font-black text-teal-700 group-hover:neu-flat transition-all">
+              TF
+            </div>
+
+            <div class="space-y-1.5">
+              <span
+                class="text-[10px] font-extrabold uppercase tracking-wider text-teal-800 bg-teal-100/70 px-2.5 py-0.5 rounded-md inline-block">
+                Absen 17
+              </span>
+              <h3
+                class="font-display text-xl sm:text-2xl font-black text-slate-900 group-hover:text-teal-700 transition-colors leading-tight">
+                Tanaya Firdauzi
+              </h3>
+              <p class="text-xs font-semibold text-slate-500">
+                Riset
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs text-teal-700 font-bold">
+            <span>Anggota #3</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Tokoh 4: Achmad Hasby -->
+        <div
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-5">
+            <div
+              class="w-16 h-16 rounded-2xl neu-inset flex items-center justify-center font-display text-2xl font-black text-lime-700 group-hover:neu-flat transition-all">
+              AH
+            </div>
+
+            <div class="space-y-1.5">
+              <span
+                class="text-[10px] font-extrabold uppercase tracking-wider text-lime-800 bg-lime-100/70 px-2.5 py-0.5 rounded-md inline-block">
+                Absen 01
+              </span>
+              <h3
+                class="font-display text-xl sm:text-2xl font-black text-slate-900 group-hover:text-lime-700 transition-colors leading-tight">
+                Achmad Hasby
+              </h3>
+              <p class="text-xs font-semibold text-slate-500">
+                Analisis
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs text-lime-700 font-bold">
+            <span>Anggota #4</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+        <!-- Tokoh 5: Yoga Pratama -->
+        <div
+          class="snap-start shrink-0 w-[270px] sm:w-[300px] md:w-[320px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-5">
+            <div
+              class="w-16 h-16 rounded-2xl neu-inset flex items-center justify-center font-display text-2xl font-black text-green-700 group-hover:neu-flat transition-all">
+              YP
+            </div>
+
+            <div class="space-y-1.5">
+              <span
+                class="text-[10px] font-extrabold uppercase tracking-wider text-green-800 bg-green-100/70 px-2.5 py-0.5 rounded-md inline-block">
+                Absen 00
+              </span>
+              <h3
+                class="font-display text-xl sm:text-2xl font-black text-slate-900 group-hover:text-green-700 transition-colors leading-tight">
+                Yoga Pratama
+              </h3>
+              <p class="text-xs font-semibold text-slate-500">
+                Publikasi
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between text-xs text-green-700 font-bold">
+            <span>Anggota #5</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 5. CERITA & BERITA K3 SECTION (CAROUSEL LOOP CONTINUOUS)                 -->
+  <!-- ========================================================================= -->
+  <section id="berita-cerita" class="py-16 lg:py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Header Section -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-6">
+        <div class="space-y-3 max-w-2xl">
+          <div
+            class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full neu-inset text-xs font-bold text-k3-800 uppercase tracking-wider">
+            <i data-lucide="newspaper" class="w-3.5 h-3.5"></i>
+            <span>Warta & Kisah Inspiratif K3</span>
+          </div>
+
+          <h2 class="font-display text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            Cerita & Berita Keselamatan Kerja
+          </h2>
+
+          <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+            Jelajahi kumpulan berita investigatif, studi kasus pemulihan cedera kerja, serta regulasi K3 terkini dalam
+            format <em>Carousel Loop</em> interaktif.
+          </p>
+        </div>
+
+        <!-- Carousel Loop Navigation Buttons -->
+        <div class="flex items-center space-x-3 shrink-0">
+          <button id="article-prev" type="button" aria-label="Geser artikel ke kiri"
+            class="w-11 h-11 rounded-2xl neu-btn text-slate-700 hover:text-k3-700 flex items-center justify-center transition-all">
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button id="article-next" type="button" aria-label="Geser artikel ke kanan"
+            class="w-11 h-11 rounded-2xl neu-btn text-slate-700 hover:text-k3-700 flex items-center justify-center transition-all">
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- CAROUSEL LOOP TRACK CONTAINER -->
+      <div id="articles-loop-track"
+        class="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-6 pt-2 snap-x snap-mandatory">
+
+        <!-- Artikel 1: Investigasi Utama -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-k3-800">
+                🔴 Investigasi Utama
+              </span>
+              <span class="text-slate-500 font-semibold">6 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Survei K3 2026: 74% Software Engineer Alami Nyeri Muskuloskeletal Kronis
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Laporan gabungan serikat developer mengungkap lonjakan keluhan saraf kejepit dan tulang belakang pada
+              pekerja tech remote akibat maraton koding berjam-jam tanpa kursi yang ergonomis.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Tim Redaksi Kthree</span>
+            <button onclick="openNewsModal('survei-2026')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artikel 2: Kisah Adrian -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-emerald-800">
+                Kisah Nyata
+              </span>
+              <span class="text-slate-500 font-semibold">5 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Kisah Adrian: Dari Ancaman Pensiun Dini Hingga Pulih dari Carpal Tunnel
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Adrian (29), backend engineer, membagikan kisahnya merombak total workstation dengan vertical mouse dan
+              latihan peregangan tendon gliding hingga saraf pergelangan tangannya pulih normal.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">dr. Handoko, Sp.Ok</span>
+            <button onclick="openNewsModal('kisah-adrian')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artikel 3: Riset Dark Mode -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-blue-800">
+                Riset Medis
+              </span>
+              <span class="text-slate-500 font-semibold">4 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Studi Mata: Mengapa 'Dark Mode' Saja Tidak Menjamin Bebas dari CVS
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Koding menggunakan tema gelap di ruangan redup tanpa penerangan pendukung justru memicu pembesaran pupil
+              berlebihan dan kelelahan otot akomodasi mata.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">dr. Anita, Sp.M</span>
+            <button onclick="openNewsModal('riset-darkmode')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artikel 4: Insiden Lab -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-amber-800">
+                Keamanan Lab
+              </span>
+              <span class="text-slate-500 font-semibold">5 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Insiden Korsleting Lab Komputer Kampus: Bahaya Colokan Tanpa Grounding
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Percikan api pada colokan bertumpuk (daisy-chain) merusak belasan komponen hardware. Investigasi K3
+              menyoroti pentingnya jalur pembumian terpisah dan pemadam api jenis gas CO2.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Ir. Rian Wicaksono</span>
+            <button onclick="openNewsModal('insiden-lab')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artikel 5: Kisah Siska & Burnout -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-emerald-800">
+                Kisah Nyata
+              </span>
+              <span class="text-slate-500 font-semibold">6 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Kisah Siska: Menang Melawan 'Phantom Slack Notification' Saat WFH
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Sindrom selalu merasa ponsel bergetar saat tidur dialami Siska akibat batas kerja yang kabur. Metode
+              ritual shutdown fisik berhasil menyelamatkan ritme sirkadiannya.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Tania Pratiwi, M.Psi</span>
+            <button onclick="openNewsModal('kisah-siska')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artikel 6: Standing Desk vs Kursi -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-blue-800">
+                Riset Medis
+              </span>
+              <span class="text-slate-500 font-semibold">5 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Standing Desk vs Kursi Ergonomis: Temuan Rasio Duduk-Berdiri Ideal
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Riset biomekanik membuktikan berdiri statis seharian justru memicu varises. Kombinasi 45 menit duduk tegak
+              dan 15 menit berdiri aktif adalah aturan emas dekompresi tulang belakang.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Budi Santoso, ST</span>
+            <button onclick="openNewsModal('riset-standing-desk')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Artikel 7: Hak untuk Disconnect -->
+        <div
+          class="article-loop-card snap-start shrink-0 w-[300px] sm:w-[350px] md:w-[380px] neu-flat rounded-3xl p-7 flex flex-col justify-between group hover:-translate-y-2 transition-all">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between text-xs">
+              <span class="px-3 py-1 rounded-full neu-inset text-[11px] font-extrabold text-teal-800">
+                Kebijakan K3
+              </span>
+              <span class="text-slate-500 font-semibold">4 Menit Baca</span>
+            </div>
+
+            <h3
+              class="font-display text-xl font-bold text-slate-900 group-hover:text-k3-700 transition-colors leading-snug">
+              Hak untuk 'Disconnect': Bagaimana Perusahaan Startup Mematuhi ISO 45003
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed">
+              Mematikan akses server dan notifikasi pekerjaan di luar jam kerja resmi dijadikan SOP keselamatan kerja
+              demi mencegah turnover dev dan kelelahan mental akut.
+            </p>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-300/40 flex items-center justify-between">
+            <span class="text-xs text-slate-500 font-medium">Tim Advokasi K3</span>
+            <button onclick="openNewsModal('hak-disconnect')"
+              class="neu-btn px-4 py-2 rounded-xl text-xs font-bold text-k3-800 hover:text-k3-900 flex items-center gap-1.5">
+              <span>Baca Cerita</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Loop Carousel Navigation Dots -->
+      <div id="article-dots" class="flex items-center justify-center gap-2 mt-4">
+        <!-- Dots injected via JS -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 6. FOOTER (CLEAN NEUMORPHISM, BRAND 'Kthree', REGULASI & EDUKASI K3)     -->
+  <!-- ========================================================================= -->
+  <footer class="neu-flat border-t border-white/60 pt-14 pb-12 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-300/40">
+
+        <!-- Brand Info -->
+        <div class="md:col-span-5 space-y-3">
+          <a href="#" class="font-display text-3xl font-extrabold text-slate-900 tracking-tight">
+            Kthree<span class="text-k3-600">.</span>
+          </a>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm">
+            Portal Keselamatan, Kesehatan, Keamanan Kerja dan Lingkungan (K3) khusus bagi ekosistem software
+            engineering, remote developers, dan pengelola lab teknologi.
+          </p>
+          <div class="pt-2 flex items-center gap-2 text-xs font-bold text-k3-800">
+            <span class="w-2.5 h-2.5 rounded-full bg-k3-500"></span>
+            <span>Berlandaskan Permenaker No. 5/2018 & ISO 9241-5</span>
+          </div>
+        </div>
+
+        <!-- Tautan Navigasi -->
+        <div class="md:col-span-3 space-y-2.5">
+          <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Navigasi Utama</h4>
+          <ul class="text-xs space-y-2 text-slate-600">
+            <li><a href="#hero" class="hover:text-k3-700 transition-colors">Beranda & Animasi Hero</a></li>
+            <li><a href="#tentang-k3" class="hover:text-k3-700 transition-colors">Mengenal K3 Programmer</a></li>
+            <li><a href="#tokoh-k3" class="hover:text-k3-700 transition-colors">Tokoh Tim Pengembang</a></li>
+            <li><a href="#berita-cerita" class="hover:text-k3-700 transition-colors">Kumpulan Cerita & Berita</a></li>
+          </ul>
+        </div>
+
+        <!-- Komitmen Edukasi & Medis -->
+        <div class="md:col-span-4 space-y-2.5">
+          <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider">Catatan Edukasi K3</h4>
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Informasi di portal ini bersifat preventif dan edukatif. Jika Anda merasakan kesemutan menahun atau nyeri
+            akut pada tulang belakang, segera periksakan diri ke dokter spesialis kedokteran okupasi (Sp.Ok).
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Copyright Bar -->
+      <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+        <div>
+          &copy; 2026 <strong>Kthree</strong>. Dibuat oleh tim pengembang: <em>Grace Marin Sitanggang, M. Erfand R.T.S,
+            Tanaya Firdauzi, Achmad Hasby, Yoga Pratama</em>.
+        </div>
+        <div>
+          <a href="#hero" class="hover:text-k3-700 transition-colors font-bold flex items-center gap-1">
+            <span>Kembali ke Atas</span>
+            <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ========================================================================= -->
+  <!-- MODAL BACA CERITA LENGKAP (POP-UP INTERAKTIF NEUMORPHIC)                 -->
+  <!-- ========================================================================= -->
+  <div id="story-modal"
+    class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <div
+      class="neu-flat bg-[#EEF5F1] rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative space-y-4 border border-white max-h-[90vh] overflow-y-auto">
+
+      <div class="flex items-center justify-between border-b border-slate-300/40 pb-3">
+        <span id="modal-tag" class="px-3 py-1 rounded-full neu-inset text-xs font-bold text-k3-800">
+          Kategori Berita
+        </span>
+        <button onclick="closeNewsModal()" class="neu-btn p-1.5 rounded-xl text-slate-500 hover:text-slate-800">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <h3 id="modal-title" class="font-display text-xl sm:text-2xl font-bold text-slate-900 leading-tight">
+        Judul Berita
+      </h3>
+
+      <div class="text-xs text-slate-500 font-semibold flex items-center gap-3">
+        <span id="modal-author">Oleh Tim Redaksi Kthree</span>
+        <span>•</span>
+        <span id="modal-date">Oktober 2026</span>
+      </div>
+
+      <div id="modal-body" class="text-xs sm:text-sm text-slate-700 leading-relaxed space-y-3 pt-2">
+        <!-- Konten cerita diinjeksikan via JavaScript -->
+      </div>
+
+      <div class="pt-4 border-t border-slate-300/40 flex justify-end">
+        <button onclick="closeNewsModal()" class="neu-cta px-6 py-2.5 rounded-xl text-xs font-bold">
+          Tutup Cerita
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: SCROLL TRIGGER LINGKARAN, CAROUSEL TOKOH, & CAROUSEL LOOP     -->
+  <!-- ========================================================================= -->
+  <script>
+    // Inisialisasi Ikon Lucide
+    lucide.createIcons();
+
+    // Toggle Menu Mobile Drawer
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    if (mobileToggle && mobileDrawer) {
+      mobileToggle.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('hidden');
+      });
+    }
+
+    // =========================================================================
+    // SCROLL TRIGGER: ANIMASI LINGKARAN KONSENTRIS DI HERO YANG MELEBAR
+    // =========================================================================
+    const heroRings = document.getElementById('hero-rings');
+    const ring1 = document.getElementById('ring-1');
+    const ring2 = document.getElementById('ring-2');
+    const ring3 = document.getElementById('ring-3');
+    const ring4 = document.getElementById('ring-4');
+    const ring5 = document.getElementById('ring-5');
+
+    let ticking = false;
+
+    function handleScrollExpansion() {
+      const scrollY = window.scrollY || window.pageYOffset;
+
+      // Hitung skala ekspansi lingkaran berdasarkan scroll
+      const scaleValue = 1 + Math.min(scrollY * 0.0012, 0.95);
+      const rotateValue = scrollY * 0.035;
+
+      // Opasitas berkurang halus setelah scroll sangat jauh
+      const opacityValue = Math.max(0.18, 1 - scrollY * 0.00075);
+
+      if (heroRings) {
+        heroRings.style.transform = `translate(-50%, -50%) scale(${scaleValue}) rotate(${rotateValue}deg)`;
+        heroRings.style.opacity = opacityValue;
+      }
+
+      // Dinamis melebarkan radius dan tebal garis stroke SVG
+      if (ring1) ring1.setAttribute('stroke-width', Math.min(55, 36 + scrollY * 0.025));
+      if (ring2) ring2.setAttribute('stroke-width', Math.min(60, 42 + scrollY * 0.025));
+      if (ring3) ring3.setAttribute('stroke-width', Math.min(64, 44 + scrollY * 0.03));
+      if (ring4) ring4.setAttribute('stroke-width', Math.min(68, 48 + scrollY * 0.035));
+      if (ring5) ring5.setAttribute('stroke-width', Math.min(60, 40 + scrollY * 0.025));
+
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScrollExpansion);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Panggil sekali saat inisialisasi awal
+    handleScrollExpansion();
+
+    // =========================================================================
+    // CAROUSEL TOKOH (ANGGOTA KELOMPOK)
+    // =========================================================================
+    const membersCarousel = document.getElementById('members-carousel');
+    const memberPrev = document.getElementById('member-prev');
+    const memberNext = document.getElementById('member-next');
+
+    if (membersCarousel && memberPrev && memberNext) {
+      const memberScrollStep = 330;
+
+      memberPrev.addEventListener('click', () => {
+        if (membersCarousel.scrollLeft <= 10) {
+          // Loop to end
+          membersCarousel.scrollTo({ left: membersCarousel.scrollWidth, behavior: 'smooth' });
+        } else {
+          membersCarousel.scrollBy({ left: -memberScrollStep, behavior: 'smooth' });
+        }
+      });
+
+      memberNext.addEventListener('click', () => {
+        const maxScroll = membersCarousel.scrollWidth - membersCarousel.clientWidth - 10;
+        if (membersCarousel.scrollLeft >= maxScroll) {
+          // Loop to start
+          membersCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          membersCarousel.scrollBy({ left: memberScrollStep, behavior: 'smooth' });
+        }
+      });
+    }
+
+    // =========================================================================
+    // CAROUSEL LOOP ARTIKEL BERITA (CONTINUOUS / SEAMLESS LOOP NAVIGATION)
+    // =========================================================================
+    const articlesTrack = document.getElementById('articles-loop-track');
+    const articlePrev = document.getElementById('article-prev');
+    const articleNext = document.getElementById('article-next');
+    const articleDotsContainer = document.getElementById('article-dots');
+
+    if (articlesTrack && articlePrev && articleNext) {
+      const articleCards = articlesTrack.querySelectorAll('.article-loop-card');
+      const totalArticles = articleCards.length;
+      const cardWidth = 370;
+
+      // Inisialisasi Dots
+      if (articleDotsContainer) {
+        articleDotsContainer.innerHTML = '';
+        articleCards.forEach((_, idx) => {
+          const dot = document.createElement('button');
+          dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-k3-600 w-6' : 'bg-slate-300 hover:bg-slate-400'}`;
+          dot.setAttribute('aria-label', `Artikel ${idx + 1}`);
+          dot.addEventListener('click', () => {
+            articlesTrack.scrollTo({ left: idx * cardWidth, behavior: 'smooth' });
+          });
+          articleDotsContainer.appendChild(dot);
+        });
+      }
+
+      function updateActiveDot() {
+        if (!articleDotsContainer) return;
+        const activeIdx = Math.round(articlesTrack.scrollLeft / cardWidth);
+        const dots = articleDotsContainer.querySelectorAll('button');
+        dots.forEach((dot, idx) => {
+          if (idx === Math.min(activeIdx, dots.length - 1)) {
+            dot.className = 'w-6 h-2.5 rounded-full bg-k3-600 transition-all duration-300';
+          } else {
+            dot.className = 'w-2.5 h-2.5 rounded-full bg-slate-300 hover:bg-slate-400 transition-all duration-300';
+          }
+        });
+      }
+
+      articlesTrack.addEventListener('scroll', () => {
+        updateActiveDot();
+      }, { passive: true });
+
+      // Tombol Next dengan Loop Wrap-Around
+      articleNext.addEventListener('click', () => {
+        const maxScroll = articlesTrack.scrollWidth - articlesTrack.clientWidth - 20;
+        if (articlesTrack.scrollLeft >= maxScroll) {
+          // Loop kembali ke awal
+          articlesTrack.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          articlesTrack.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        }
+      });
+
+      // Tombol Prev dengan Loop Wrap-Around
+      articlePrev.addEventListener('click', () => {
+        if (articlesTrack.scrollLeft <= 20) {
+          // Loop lompat ke ujung akhir
+          articlesTrack.scrollTo({ left: articlesTrack.scrollWidth, behavior: 'smooth' });
+        } else {
+          articlesTrack.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        }
+      });
+    }
+
+    // =========================================================================
+    // MODAL CERITA K3 LENGKAP
+    // =========================================================================
+    const newsData = {
+      'survei-2026': {
+        tag: 'Investigasi Utama',
+        title: 'Survei K3 2026: 74% Software Engineer Mengaku Alami Nyeri Muskuloskeletal Kronis Akibat Marathon Koding',
+        author: 'Tim Redaksi Kthree',
+        date: '18 Oktober 2026',
+        body: `
+          <p>Dalam investigasi lapangan yang melibatkan 1.200 programmer di kota-kota teknologi besar, tercatat bahwa 74.2% responden mengaku mengalami nyeri leher bagian belakang (servikal) dan rasa kaku pada punggung bawah (lumbar).</p>
+          <p><strong>Temuan Kunci:</strong> Kebanyakan programmer bekerja menggunakan laptop secara langsung tanpa alas peninggi (*laptop stand*), memaksa leher menunduk sekitar 30 hingga 45 derajat. Posisi ini memberikan tekanan ekuivalen seberat 18–22 kg pada bantalan tulang leher.</p>
+          <p><strong>Rekomendasi Medis:</strong> Selalu posisikan batas atas monitor sejajar dengan garis horizontal pandangan mata Anda, dan gunakan keyboard eksternal agar lengan dapat bertumpu rileks membentuk sudut 90-100 derajat.</p>
+        `
+      },
+      'kisah-adrian': {
+        tag: 'Kisah Nyata',
+        title: 'Kisah Adrian: Dari Hampir Pensiun Dini Akibat Carpal Tunnel Hingga Kembali Ngoding Bebas Sakit',
+        author: 'dr. Handoko, Sp.Ok',
+        date: '14 Oktober 2026',
+        body: `
+          <p>"Saya ingat betul saat itu, jari jempol dan telunjuk saya tiba-tiba terasa tebal seperti disengat semut setiap kali mengetik lebih dari 10 menit. Rasanya karir backend developer saya tamat," kenang Adrian.</p>
+          <p>Setelah berkonsultasi ke dokter spesialis kedokteran kerja, Adrian didiagnosis mengalami Carpal Tunnel Syndrome stadium awal. Alih-alih langsung operasi, ia melakukan intervensi K3 secara menyeluruh:</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Mengganti mouse konvensional ke <strong>Vertical Ergonomic Mouse</strong> sudut rotasi 57°.</li>
+            <li>Memasang <strong>Padded Palm Rest</strong> berbahan memory foam di depan keyboard mekanikalnya.</li>
+            <li>Rutin melakukan peregangan *tendon gliding* setiap 2 jam sekali.</li>
+          </ul>
+          <p>Dalam waktu 8 minggu, keluhan kesemutan mereda 90% dan kini Adrian dapat kembali produktif tanpa rasa sakit.</p>
+        `
+      },
+      'riset-darkmode': {
+        tag: 'Riset Medis',
+        title: 'Studi Mata: Mengapa Dark Mode Saja Tidak Menjamin Anda Bebas dari Computer Vision Syndrome',
+        author: 'dr. Anita, Sp.M',
+        date: '11 Oktober 2026',
+        body: `
+          <p>Banyak developer beranggapan tema gelap (Dark Theme) adalah obat mujarab bagi kesehatan mata. Namun studi optometri menunjukkan bahwa koding dengan dark mode di dalam ruangan yang gelap gulita justru memicu fenomena <em>halation</em>.</p>
+          <p>Teks putih di atas latar hitam menyebabkan pupil mata membesar agar dapat menangkap lebih banyak cahaya sekitar, namun pada saat yang sama harus memfokuskan teks yang terang. Akibatnya, otot siliaris mata bekerja dua kali lebih keras.</p>
+          <p><strong>Saran K3 Optik:</strong> Pastikan ruangan kerja memiliki pencahayaan cukup minimal 300 Lux, hindari pantulan cahaya langsung ke layar, dan selalu terapkan aturan <strong>20-20-20</strong> (setiap 20 menit, pandang objek berjarak 6 meter selama 20 detik).</p>
+        `
+      },
+      'insiden-lab': {
+        tag: 'Keamanan Lab',
+        title: 'Insiden Korsleting Lab Komputer Kampus: Pelajaran Berharga tentang Stopkontak Tanpa Grounding',
+        author: 'Ir. Rian Wicaksono',
+        date: '5 Oktober 2026',
+        body: `
+          <p>Insiden kebakaran kecil pada instalasi kelistrikan lab komputer sebuah universitas sempat memicu kepanikan pekan lalu. Beruntung, sistem APAR Clean Agent gas CO2 berhasil memadamkan titik api sebelum menjalar.</p>
+          <p>Hasil investigasi menunjukkan beban berlebih akibat kebiasaan menumpuk kabel extension (daisy chaining) hingga 4 lapis untuk menyalakan monitor, PC, dan charger laptop mahasiswa.</p>
+          <p><strong>Standar Keselamatan Lab Komputer:</strong> Setiap meja lab wajib memiliki jalur pembumian mandiri (grounding), pembatasan beban maksimum per soket, serta inspeksi berkala pada integritas isolator kabel listrik.</p>
+        `
+      },
+      'kisah-siska': {
+        tag: 'Kisah Nyata',
+        title: 'Kisah Siska: Memulihkan Irama Tidur & Menang Melawan "Phantom Slack Notification"',
+        author: 'Tania Pratiwi, M.Psi',
+        date: '28 September 2026',
+        body: `
+          <p>Bekerja sebagai DevOps engineer dengan rotasi on-call membuat Siska sering terbangun di malam hari karena merasa mendengar bunyi notifikasi Slack, padahal ponselnya hening.</p>
+          <p>Fenomena psikososial ini dikenal sebagai *hyper-vigilance* akibat batas kerja yang kabur saat bekerja dari rumah (WFH). Siska kemudian menerapkan protokol pemulihan K3:</p>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>Menetapkan 'Physical Workstation Boundary' — ia tidak lagi membuka laptop di atas kasur.</li>
+            <li>Melakukan *Shutdown Ritual* pukul 18.00 dengan mematikan notifikasi di ponsel pribadi.</li>
+            <li>Berjalan kaki santai di luar ruangan selama 15 menit setiap sore untuk mengembalikan ritme sirkadian.</li>
+          </ul>
+        `
+      },
+      'riset-standing-desk': {
+        tag: 'Riset Medis',
+        title: 'Uji Biomekanik: Standing Desk vs Kursi Ergonomis, Mana yang Lebih Efektif?',
+        author: 'Budi Santoso, ST',
+        date: '22 September 2026',
+        body: `
+          <p>Tren meja berdiri (*standing desk*) marak di berbagai startup. Namun uji laboratorium ergonomi membuktikan bahwa berdiri diam lebih dari 2 jam berturut-turut justru memicu varises dan pembengkakan telapak kaki.</p>
+          <p><strong>Aturan Emas Sit-Stand:</strong> Rasio ideal yang direkomendasikan adalah 45 menit duduk tegak dengan kursi ergonomis, diikuti oleh 15 menit berdiri aktif. Kombinasi dinamis inilah yang paling efektif meredakan beban diskus intervertebralis tulang belakang.</p>
+        `
+      },
+      'hak-disconnect': {
+        tag: 'Kebijakan K3',
+        title: 'Hak untuk "Disconnect": Bagaimana Perusahaan Mulai Mengadopsi Standar K3 Psikososial',
+        author: 'Tim Advokasi IT',
+        date: '15 September 2026',
+        body: `
+          <p>Sejumlah perusahaan teknologi terkemuka mulai menerapkan kebijakan otomatisasi yang memblokir email dan pesan pekerjaan yang dikirimkan antara pukul 20.00 hingga 07.00 pagi.</p>
+          <p>Langkah ini diambil menyusul ditetapkannya standar ISO 45003 tentang manajemen bahaya psikososial di tempat kerja. Melindungi waktu istirahat developer terbukti menurunkan angka turnover dan meningkatkan kualitas kode sebesar 24% pada sprint berikutnya.</p>
+        `
+      }
+    };
+
+    function openNewsModal(newsId) {
+      const item = newsData[newsId];
+      if (!item) return;
+
+      document.getElementById('modal-tag').textContent = item.tag;
+      document.getElementById('modal-title').textContent = item.title;
+      document.getElementById('modal-author').textContent = `Oleh ${item.author}`;
+      document.getElementById('modal-date').textContent = item.date;
+      document.getElementById('modal-body').innerHTML = item.body;
+
+      document.getElementById('story-modal').classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+    }
+
+    function closeNewsModal() {
+      document.getElementById('story-modal').classList.add('hidden');
+      document.body.classList.remove('overflow-hidden');
+    }
+
+    // Tutup modal jika klik di luar atau tekan ESC
+    const storyModal = document.getElementById('story-modal');
+    if (storyModal) {
+      storyModal.addEventListener('click', (e) => {
+        if (e.target.id === 'story-modal') closeNewsModal();
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeNewsModal();
+    });
+  </script>
+</body>
+
+</html>
